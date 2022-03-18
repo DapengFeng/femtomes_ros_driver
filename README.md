@@ -1,4 +1,4 @@
-<img title="" src="./FemtomesLogo.png" alt="" data-align="center" width="377">
+<img title="" src="./FemtomesLogo.png" alt="" data-align="center">
 
 # ROS Wrapper for Femtomes Nano-D Reciver
 
