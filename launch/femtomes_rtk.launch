@@ -1,0 +1,15 @@
+<launch>
+    <arg name="ip" default="192.168.42.129"/>
+    <arg name="port" default="28000"/>
+    <arg name="publish_tf" default="False"/>
+    <node pkg="femtomes_ros_driver" type="femtomes_rtk.py" name="femtomes_rtk" output="screen">
+        <param name="ip" value="$(arg ip)"/>
+        <param name="port" value="$(arg port)"/>
+        <param name="publish_tf" value="$(arg publish_tf)"/>
+        <rosparam ns="configuration">
+            log_request:
+                BESTXYZB: 0.1
+                HEADINGB: 0.1
+        </rosparam>
+    </node>
+</launch>
