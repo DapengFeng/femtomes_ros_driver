@@ -16,7 +16,7 @@ For running in Melodic environment please switch to the [melodic](https://github
 
 - Software
   
-  - [ROS Noetic on Ubuntu 20.04](http://wiki.ros.org/noetic/Installation/Ubuntu)  or [ROS Noetic or later on Windows 10](https://wiki.ros.org/Installation/Windows)
+  - [ROS Noetic on Ubuntu 20.04](http://wiki.ros.org/noetic/Installation/Ubuntu)
   
   - Python3.x
 
@@ -31,14 +31,7 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
 ```
 
-*windows*
-
-```batch
-mkdir c:\catkin_ws\src
-cd c:\catkin_ws\src
-```
-
-2. Clone the Femtomes  ROS Driver from [here](https://github.com/DapengFeng/femtomes_ros_driver) into 'catkin_ws/src/' and make
+1. Clone the Femtomes  ROS Driver from [here](https://github.com/DapengFeng/femtomes_ros_driver) into 'catkin_ws/src/' and make
 
 ```bash
 git clone https://github.com/DapengFeng/femtomes_ros_driver.git
