@@ -4,9 +4,9 @@
 
 There are packages for using Femtomes Reciver (Nano-D) with ROS.
 
-This version supports Noetic distribution.
+This version supports Melodic distribution.
 
-For running in Melodic environment please switch to the [melodic](https://github.com/DapengFeng/femtomes_ros_driver/tree/melodic). 
+For running in Melodic environment please switch to the [noetic](https://github.com/DapengFeng/femtomes_ros_driver/tree/main). 
 
 ## Requirements
 
@@ -16,9 +16,9 @@ For running in Melodic environment please switch to the [melodic](https://github
 
 - Software
   
-  - [ROS Noetic on Ubuntu 20.04](http://wiki.ros.org/noetic/Installation/Ubuntu)
+  - [ROS Melodic on Ubuntu 18.04](http://wiki.ros.org/noetic/Installation/Ubuntu)
   
-  - Python3.x
+  - Python2.x
 
 ## Install from Sources
 
@@ -35,6 +35,7 @@ cd ~/catkin_ws/src
 
 ```bash
 git clone https://github.com/DapengFeng/femtomes_ros_driver.git
+git checkout melodic
 cd ..
 catkin_make
 ```
