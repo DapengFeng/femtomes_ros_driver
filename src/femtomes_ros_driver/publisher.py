@@ -12,7 +12,7 @@ from tf.transformations import quaternion_from_euler
 
 
 class FemtomesPublisher(object):
-    def __init__(self, xyz_topic: str, heading_topic: str) -> None:
+    def __init__(self, xyz_topic, heading_topic):
         self.publisher = rospy.Publisher(
             "femtomes/odom", Odometry, queue_size=1
         )
@@ -35,12 +35,12 @@ class FemtomesPublisher(object):
         sync.registerCallback(self.publish)
 
     def publish(
-        self, bestxyz: FemtomesBESTXYZ, heading: FemtomesHEADING
-    ) -> None:
+        self, bestxyz, heading
+    ):
         odom = Odometry()
         odom.header.seq = self.seq
         odom.header.frame_id = self.odom_frame
-        odom.header.stamp = rospy.Time.now()
+        odom.header.stamp = (bestxyz.header.stamp + heading.header.stamp) / 2
         odom.child_frame_id = self.base_frame
 
         odom.pose.pose.position.x = bestxyz.p_x
@@ -54,8 +54,8 @@ class FemtomesPublisher(object):
         odom.pose.covariance[0] = pow(bestxyz.p_x_std, 2)
         odom.pose.covariance[7] = pow(bestxyz.p_y_std, 2)
         odom.pose.covariance[14] = pow(bestxyz.p_z_std, 2)
-        odom.pose.covariance[28] = pow(heading.ptchstddev, 2)
-        odom.pose.covariance[35] = pow(heading.hgdstddev, 2)
+        odom.pose.covariance[28] = pow(radians(heading.ptchstddev), 2)
+        odom.pose.covariance[35] = pow(radians(heading.hgdstddev), 2)
 
         odom.twist.twist.linear.x = bestxyz.v_x
         odom.twist.twist.linear.y = bestxyz.v_y

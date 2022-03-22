@@ -1,12 +1,5 @@
-from io import StringIO
 import socket
 import threading
-from typing import Any
-from typing import Callable
-from typing import Iterable
-from typing import Mapping
-from typing import Optional
-from typing import Tuple
 
 from femtomes_ros_driver import msg
 import rospy
@@ -22,16 +15,9 @@ class Packet(threading.Thread):
 
     def __init__(
         self,
-        sock: socket.socket,
-        group: Any = None,
-        target: Optional[Callable[..., Any]] = None,
-        name: Optional[str] = None,
-        args: Iterable[Any] = ...,
-        kwargs: Optional[Mapping[str, Any]] = None,
-        *,
-        daemon: Optional[bool] = None,
-    ) -> None:
-        super().__init__(group, target, name, args, kwargs, daemon=daemon)
+        sock
+    ):
+        super(Packet, self).__init__()
         self.sock = sock
         self.finish = threading.Event()
         self.translators = {}
@@ -41,11 +27,7 @@ class Packet(threading.Thread):
 
     def recv(
         self,
-    ) -> Tuple[
-        Optional[msg.FemtomesHeader],
-        Optional[StringIO],
-        Optional[msg.FemtomesFooter],
-    ]:
+    ):
         """Receive a packet from the socket."""
         header = msg.FemtomesHeader()
         footer = msg.FemtomesFooter()
@@ -71,14 +53,12 @@ class Packet(threading.Thread):
             sync = self.sock.recv(1)
             if sync != b"\x44":
                 raise ValueError(
-                    f"Bad preamble2 byte, should be 0x44, received "
-                    f"0x{ord(sync[0])}"
+                    "Bad preamble2 byte, should be 0x44, received 0x%d" % ord(sync[0])
                 )
             sync = self.sock.recv(1)
             if sync != b"\x12":
                 raise ValueError(
-                    f"Bad preamble3 byte, should be 0x44, received "
-                    f"0x{ord(sync[0])}"
+                    "Bad preamble3 byte, should be 0x44, received 0x%d" % ord(sync[0])
                 )
 
             # Four byte offset to account for 3 preamble3 bytes and on header
@@ -97,10 +77,10 @@ class Packet(threading.Thread):
 
         return header, packect_buf, footer
 
-    def send(self, message: str) -> None:
+    def send(self, message):
         self.sock.send(message.encode())
 
-    def run(self) -> None:
+    def run(self):
         messages = {}
         while not self.finish.is_set():
             try:
@@ -118,5 +98,5 @@ class Packet(threading.Thread):
             except KeyError:
                 if header.message_id not in messages:
                     rospy.logwarn(
-                        f"No publisher for message id {header.message_id}"
+                        "No publisher for message id %d" % header.message_id
                     )
