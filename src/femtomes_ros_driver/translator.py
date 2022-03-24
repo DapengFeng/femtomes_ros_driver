@@ -1,5 +1,4 @@
 from io import BytesIO
-import time
 
 import rospy
 from std_msgs.msg import Header
@@ -23,7 +22,9 @@ class FemtomesTranslator(object):
         std_header.seq = self.seq
         if header.week != 0:
             std_header.stamp = rospy.Time(
-                header.week * 7 * 24 * 60 * 60 + int(header.ms / 1000) + 315964800,
+                header.week * 7 * 24 * 60 * 60
+                + int(header.ms / 1000)
+                + 315964800,
                 header.ms % 1000 * 1000000,
             )
         else:

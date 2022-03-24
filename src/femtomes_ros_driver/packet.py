@@ -13,10 +13,7 @@ class Packet(threading.Thread):
     """Common base class. Provides functionally to recv/send femtomes-formatted
     packets."""
 
-    def __init__(
-        self,
-        sock
-    ):
+    def __init__(self, sock):
         super(Packet, self).__init__()
         self.sock = sock
         self.finish = threading.Event()
@@ -53,12 +50,14 @@ class Packet(threading.Thread):
             sync = self.sock.recv(1)
             if sync != b"\x44":
                 raise ValueError(
-                    "Bad preamble2 byte, should be 0x44, received 0x%d" % ord(sync[0])
+                    "Bad preamble2 byte, should be 0x44, received 0x%d"
+                    % ord(sync[0])
                 )
             sync = self.sock.recv(1)
             if sync != b"\x12":
                 raise ValueError(
-                    "Bad preamble3 byte, should be 0x44, received 0x%d" % ord(sync[0])
+                    "Bad preamble3 byte, should be 0x44, received 0x%d"
+                    % ord(sync[0])
                 )
 
             # Four byte offset to account for 3 preamble3 bytes and on header

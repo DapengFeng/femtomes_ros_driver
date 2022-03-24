@@ -6,7 +6,7 @@ from .packet import Packet
 
 
 class Femtomes(object):
-    def __init__(self, ip, port, timeout = 100.0):
+    def __init__(self, ip, port, timeout=100.0):
         self.ip = ip
         self.port = port
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,7 +17,8 @@ class Femtomes(object):
             )
         except socket.error as e:
             rospy.logfatal(
-                "Couldn't connect to %s at %d, %s" %(self.ip, self.port, str(e))
+                "Couldn't connect to %s at %d, %s"
+                % (self.ip, self.port, str(e))
             )
             exit(1)
         self.sock.settimeout(timeout)
@@ -38,7 +39,9 @@ class Femtomes(object):
 
             commands = receiver_config.get("command", [])
             rospy.loginfo(
-                "Sending %d user-specified initialization commands to Femtomes Receiver." % len(commands)
+                "Sending %d user-specified initialization commands "
+                % len(commands)
+                + "to Femtomes Receiver."
             )
             for cmd in commands:
                 self.packet.send(cmd + " " + str(commands[cmd]) + "\r\n")

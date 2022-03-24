@@ -34,9 +34,7 @@ class FemtomesPublisher(object):
 
         sync.registerCallback(self.publish)
 
-    def publish(
-        self, bestxyz, heading
-    ):
+    def publish(self, bestxyz, heading):
         odom = Odometry()
         odom.header.seq = self.seq
         odom.header.frame_id = self.odom_frame
