@@ -23,10 +23,15 @@ class FemtomesTranslator(object):
     def translate(self, buff: bytes, header: FemtomesHeader) -> None:
         std_header = Header()
         std_header.seq = self.seq
-        std_header.stamp = rospy.Time(
-            header.week * 7 * 24 * 60 * 60 + header.ms / 1000,
-            header.ms % 1000 * 1000000,
-        )
+        if header.week != 0:
+            std_header.stamp = rospy.Time(
+                header.week * 7 * 24 * 60 * 60
+                + int(header.ms / 1000)
+                + 315964800,
+                header.ms % 1000 * 1000000,
+            )
+        else:
+            std_header.stamp = rospy.Time.now()
         std_header.frame_id = self.frame_id
         std_header_buff = BytesIO()
         std_header.serialize(std_header_buff)
