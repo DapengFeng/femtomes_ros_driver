@@ -40,7 +40,7 @@ class FemtomesPublisher(object):
         odom = Odometry()
         odom.header.seq = self.seq
         odom.header.frame_id = self.odom_frame
-        odom.header.stamp = rospy.Time.now()
+        odom.header.stamp = (bestxyz.header.stamp + heading.header.stamp) / 2
         odom.child_frame_id = self.base_frame
 
         odom.pose.pose.position.x = bestxyz.p_x
