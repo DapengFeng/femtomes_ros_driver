@@ -1,12 +1,16 @@
 <img title="" src="./FemtomesLogo.png" alt="" data-align="center">
 
-# ROS Wrapper for Femtomes Nano-D Reciver
+# ROS Wrapper for Femtomes Nano-D Receiver
 
-There are packages for using Femtomes Reciver (Nano-D) with ROS.
+There are packages for using Femtomes Receiver (Nano-D) with ROS.
 
 This version supports Noetic distribution.
 
 For running in Melodic environment please switch to the [melodic](https://github.com/DapengFeng/femtomes_ros_driver/tree/melodic). 
+
+## Update!
+
+### You can use [nmea_navsat_driver](http://wiki.ros.org/nmea_navsat_driver) for the standard nmea message.
 
 ## Requirements
 
@@ -47,7 +51,7 @@ catkin_make
 roslaunch femtomes_ros_driver femtomes_rtk.launch
 ```
 
-This will stream femtomes reciver and publish on the appropriate ROS topic.
+This will stream femtomes receiver and publish on the appropriate ROS topic.
 
 ### Published Topics
 
